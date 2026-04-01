@@ -1,121 +1,110 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+// App.tsx
+import { useState } from "react";
+import { TaskItem } from "./components/TaskItem";
+import { type Task } from "./types/TaskTypes";
 
-function App() {
-  const [count, setCount] = useState(0)
+// Dummy data matching your screenshot
+const DUMMY_TASKS: Task[] = [
+  {
+    id: "1",
+    title: "Redesign the Monolith design system documentation",
+    urgency: true,
+    status: "Queue",
+    completedAt: null,
+  },
+  {
+    id: "2",
+    title: "Review quarterly architectural roadmap",
+    urgency: false,
+    status: "Queue",
+    completedAt: null,
+  },
+  {
+    id: "3",
+    title: "Finalize typography tokens for Inter & Space Grotesk",
+    urgency: false,
+    status: "Queue",
+    completedAt: null,
+  },
+  {
+    id: "4",
+    title: "Morning sync with engineering team",
+    urgency: false,
+    status: "Done",
+    completedAt: Date.now(),
+  },
+  {
+    id: "5",
+    title: "Refactor navigation shell component logic",
+    urgency: false,
+    status: "Done",
+    completedAt: Date.now(),
+  },
+];
+
+export default function App() {
+  const [tasks, setTasks] = useState<Task[]>(DUMMY_TASKS);
+
+  // Temporary toggle function for the dummy view
+  const handleToggle = (id: string) => {
+    setTasks((prev) =>
+      prev.map((task) => {
+        if (task.id === id) {
+          return {
+            ...task,
+            status: task.status === "Queue" ? "Done" : "Queue",
+          };
+        }
+        return task;
+      }),
+    );
+  };
+
+  const activeTasks = tasks.filter((t) => t.status === "Queue");
+  const completedTasks = tasks.filter((t) => t.status === "Done");
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
+    <div className="min-h-screen bg-[#FAFAFA] text-black font-sans selection:bg-black selection:text-white">
+      <div className="max-w-3xl mx-auto px-6 py-20 flex flex-col h-screen">
+        {/* Header */}
+        <header className="flex justify-between items-center mb-16">
+          <h1 className="text-xl font-bold tracking-tighter uppercase">MONO</h1>
+          <div className="flex gap-4 text-gray-400">
+            <button className="hover:text-black transition-colors">⚙️</button>
+            <button className="hover:text-black transition-colors">⋮</button>
+          </div>
+        </header>
+
+        {/* Title */}
+        <div className="mb-12">
+          <p className="text-xs font-semibold text-gray-400 tracking-widest uppercase mb-2">
+            Focus Mode
           </p>
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
+            Today’s Focus
+          </h2>
         </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
+        {/* Task List */}
+        <div className="flex-1 overflow-y-auto pb-32">
+          <div className="flex flex-col gap-2">
+            {activeTasks.map((task) => (
+              <TaskItem key={task.id} task={task} onToggle={handleToggle} />
+            ))}
+          </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+          {/* Divider if we have completed tasks */}
+          {completedTasks.length > 0 && (
+            <div className="my-12 border-t border-gray-100"></div>
+          )}
+
+          <div className="flex flex-col gap-2">
+            {completedTasks.map((task) => (
+              <TaskItem key={task.id} task={task} onToggle={handleToggle} />
+            ))}
+          </div>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      </div>
+    </div>
+  );
 }
-
-export default App
