@@ -1,6 +1,7 @@
 // App.tsx
 import { useState } from "react";
 import { TaskItem } from "./components/TaskItem";
+import { TaskInput } from "./components/TaskInput";
 import { type Task } from "./types/TaskTypes";
 
 // Dummy data matching your screenshot
@@ -69,11 +70,12 @@ export default function App() {
         {/* Header */}
         <header className="flex justify-between items-center mb-16">
           <h1 className="text-xl font-bold tracking-tighter uppercase">MONO</h1>
-          <div className="flex gap-4 text-gray-400">
+          {/* <div className="flex gap-4 text-gray-400">
             <button className="hover:text-black transition-colors">⚙️</button>
             <button className="hover:text-black transition-colors">⋮</button>
-          </div>
+          </div> */}
         </header>
+        <TaskInput />
 
         {/* Title */}
         <div className="mb-12">
@@ -104,7 +106,9 @@ export default function App() {
             ))}
           </div>
         </div>
+        
       </div>
+      
     </div>
   );
 }
