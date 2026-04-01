@@ -1,5 +1,5 @@
 import { useState, useEffect, type ReactNode } from 'react';
-import { type Task, type TaskContextType, STORAGE_KEY } from './TaskTypes';
+import { type Task, type TaskContextType, STORAGE_KEY } from '../types/TaskTypes';
 import { TaskContext } from './TaskContext';
 
 export const TaskProvider = ({ children }: { children: ReactNode }) => {

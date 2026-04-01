@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { type TaskContextType } from './TaskTypes';
+import { type TaskContextType } from '../types/TaskTypes';
 
 // We export the Context and the Hook
 export const TaskContext = createContext<TaskContextType | undefined>(undefined);
