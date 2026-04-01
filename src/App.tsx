@@ -1,50 +1,9 @@
-import { useState } from "react";
 import { useTasks } from "./context/TaskContext";
 import { TaskItem } from "./components/TaskItem";
 import { TaskInput } from "./components/TaskInput";
-import { type Task } from "./types/TaskTypes";
-
-// Dummy data matching your screenshot
-const DUMMY_TASKS: Task[] = [
-  {
-    id: "1",
-    title: "Redesign the Monolith design system documentation",
-    urgency: true,
-    status: "Queue",
-    completedAt: null,
-  },
-  {
-    id: "2",
-    title: "Review quarterly architectural roadmap",
-    urgency: false,
-    status: "Queue",
-    completedAt: null,
-  },
-  {
-    id: "3",
-    title: "Finalize typography tokens for Inter & Space Grotesk",
-    urgency: false,
-    status: "Queue",
-    completedAt: null,
-  },
-  {
-    id: "4",
-    title: "Morning sync with engineering team",
-    urgency: false,
-    status: "Done",
-    completedAt: Date.now(),
-  },
-  {
-    id: "5",
-    title: "Refactor navigation shell component logic",
-    urgency: false,
-    status: "Done",
-    completedAt: Date.now(),
-  },
-];
 
 export default function App() {
-  const { tasks, completeTask } = useTasks();
+  const { tasks, completeTask, deleteTask } = useTasks();
 
   const activeTasks = tasks.filter(t => t.status === 'Queue');
   const completedTasks = tasks.filter(t => t.status === 'Done');
@@ -76,7 +35,7 @@ export default function App() {
         <div className="flex-1 overflow-y-auto pb-32">
           <div className="flex flex-col gap-2">
             {activeTasks.map((task) => (
-              <TaskItem key={task.id} task={task} onToggle={completeTask} />
+              <TaskItem key={task.id} task={task} onToggle={completeTask} onDelete={deleteTask} />
             ))}
           </div>
 
@@ -87,7 +46,7 @@ export default function App() {
 
           <div className="flex flex-col gap-2">
             {completedTasks.map((task) => (
-              <TaskItem key={task.id} task={task} onToggle={completeTask} />
+              <TaskItem key={task.id} task={task} onToggle={completeTask} onDelete={deleteTask} />
             ))}
           </div>
         </div>

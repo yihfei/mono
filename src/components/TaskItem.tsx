@@ -4,9 +4,10 @@ import { type Task } from "../types/TaskTypes";
 interface TaskItemProps {
   task: Task;
   onToggle: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
-export const TaskItem = ({ task, onToggle }: TaskItemProps) => {
+export const TaskItem = ({ task, onToggle, onDelete }: TaskItemProps) => {
   const isDone = task.status === 'Done';
 
   return (
@@ -40,6 +41,18 @@ export const TaskItem = ({ task, onToggle }: TaskItemProps) => {
           </span>
         </div>
       </div>
+
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          onDelete(task.id);
+        }}
+        className="shrink-0 px-2 py-1 text-xs opacity-50 hover:opacity-100 transition-opacity"
+        aria-label={`Delete ${task.title}`}
+      >
+        Delete
+      </button>
     </div>
   );
 };
