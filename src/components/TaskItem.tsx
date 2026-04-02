@@ -36,9 +36,9 @@ export const TaskItem = ({ task, onToggle, onDelete }: TaskItemProps) => {
             </>
           )}
           
-          <span className="text-[0.6875rem] font-label text-outline opacity-60">
+          {/* <span className="text-[0.6875rem] font-label text-outline opacity-60">
             {isDone ? 'Completed' : 'Draft'}
-          </span>
+          </span> */}
         </div>
       </div>
 
