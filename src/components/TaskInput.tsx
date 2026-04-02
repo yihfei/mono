@@ -1,16 +1,16 @@
 // src/components/TaskInput.tsx
-import { useState, useEffect, useRef } from 'react';
-import { useTasks } from '../context/TaskContext';
+import { useState, useEffect, useRef } from "react";
+import { useTasks } from "../context/TaskContext";
 
 export const TaskInput = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const { addTask } = useTasks();
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // 1. Handle CMD + K shortcut
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         inputRef.current?.focus();
         return;
@@ -19,7 +19,7 @@ export const TaskInput = () => {
       // 2. Handle "Type to Add" functionality
       // First, make sure they aren't already typing in an input or textarea
       // (This prevents hijacking focus if you add other inputs to the app later)
-      const isTypingInInput = 
+      const isTypingInInput =
         document.activeElement instanceof HTMLInputElement ||
         document.activeElement instanceof HTMLTextAreaElement;
 
@@ -30,22 +30,22 @@ export const TaskInput = () => {
 
       // Finally, if the key is a single printable character (letters, numbers, punctuation)
       if (e.key.length === 1) {
-        console.log('Focusing input due to key press:', e.key);
+        console.log("Focusing input due to key press:", e.key);
         inputRef.current?.focus();
-        // By focusing during the 'keydown' event, the browser seamlessly 
+        // By focusing during the 'keydown' event, the browser seamlessly
         // routes the subsequent 'keypress' and 'input' events to the input field,
         // meaning the character they just typed will appear automatically!
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputValue.trim() !== '') {
+    if (e.key === "Enter" && inputValue.trim() !== "") {
       addTask(inputValue.trim(), false);
-      setInputValue(''); 
+      setInputValue("");
     }
   };
 
@@ -57,17 +57,17 @@ export const TaskInput = () => {
             <span className="material-symbols-outlined absolute left-4 text-outline opacity-40">
               add
             </span>
-            
-            <input 
+
+            <input
               ref={inputRef}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleEnter}
-              className="w-full bg-transparent border-none focus:ring-0 outline-none py-4 pl-12 pr-6 font-body text-base placeholder:text-outline/40" 
-              placeholder="Type to add a new focus..." 
+              className="w-full bg-transparent border-none focus:ring-0 outline-none py-4 pl-12 pr-6 font-body text-base placeholder:text-outline/40"
+              placeholder="Type to add a new focus..."
               type="text"
             />
-            
+
             <div className="absolute right-4 flex gap-2">
               <kbd className="hidden md:flex items-center px-1.5 py-0.5 font-label text-[10px] bg-surface-container-high text-on-surface-variant opacity-60">
                 CMD
