@@ -34,7 +34,7 @@ export default function App() {
 
         {/* Task List */}
         <div className="flex-1 overflow-y-auto pb-32">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             {activeTasks.map((task) => (
               <TaskItem
                 key={task.id}

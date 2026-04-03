@@ -1,12 +1,15 @@
-import { useState, useEffect, type ReactNode } from 'react';
-import { type Task, type TaskContextType, STORAGE_KEY } from '../types/TaskTypes';
-import { TaskContext } from './TaskContext';
+import { useState, useEffect, type ReactNode } from "react";
+import {
+  type Task,
+  type TaskContextType,
+  STORAGE_KEY,
+} from "../types/TaskTypes";
+import { TaskContext } from "./TaskContext";
 
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
-
   // Lazy Initializer
   const [tasks, setTasks] = useState<Task[]>(() => {
-    if (typeof window === 'undefined') return [];
+    if (typeof window === "undefined") return [];
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
@@ -14,14 +17,13 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
         // Note: We don't call setIsLoaded(true) here anymore (see useEffect below)
         return parsed.tasks || [];
       } catch (e) {
-        console.error('Failed to parse state', e);
+        console.error("Failed to parse state", e);
       }
     }
     return [];
   });
 
   // Handle Loading state correctly
-
 
   // Sync to Storage
   useEffect(() => {
@@ -33,7 +35,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
       id: crypto.randomUUID(),
       title,
       urgency,
-      status: 'Queue',
+      status: "Queue",
       completedAt: null,
     };
     setTasks((prev) => [newTask, ...prev]);
@@ -41,7 +43,15 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
 
   const completeTask = (id: string) => {
     setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, status: 'Done', completedAt: Date.now() } : t))
+      prev.map((t) =>
+        t.id === id
+          ? {
+              ...t,
+              status: t.status === "Done" ? "Queue" : "Done",
+              completedAt: t.status === "Done" ? null : Date.now(),
+            }
+          : t,
+      ),
     );
   };
 
@@ -56,9 +66,5 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     deleteTask,
   };
 
-  return (
-    <TaskContext value={contextValue}>
-      {children}
-    </TaskContext>
-  );
+  return <TaskContext value={contextValue}>{children}</TaskContext>;
 };

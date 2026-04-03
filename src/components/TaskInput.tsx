@@ -65,16 +65,16 @@ export const TaskInput = () => {
           className={`glass-panel w-full p-1 shadow-[0_20px_40px_rgba(26,28,28,0.04)] ring-1 ${isUrgent ? "ring-red-500 border-2 border-red-500" : "ring-black/[0.03]"}`}
         >
           <div className="relative flex items-center">
-            <span className="material-symbols-outlined absolute left-4 text-outline opacity-40">
+            {/* <span className="material-symbols-outlined absolute left-4 text-outline opacity-40">
               add
-            </span>
+            </span> */}
 
             <input
               ref={inputRef}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleEnter}
-              className="w-full bg-transparent border-none focus:ring-0 outline-none py-4 pl-12 pr-6 font-body text-base placeholder:text-outline/40"
+              className="w-full bg-transparent border-none focus:ring-0 outline-none py-4 pl-6 pr-6 font-body text-base placeholder:text-outline/40"
               placeholder="Type to add a new focus..."
               type="text"
             />
