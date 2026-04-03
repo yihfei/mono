@@ -17,32 +17,17 @@ export const TaskInput = () => {
         return;
       }
 
-      // 1. Handle CMD + K shortcut
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        inputRef.current?.focus();
-        return;
-      }
-
-      // 2. Handle "Type to Add" functionality
-      // First, make sure they aren't already typing in an input or textarea
-      // (This prevents hijacking focus if you add other inputs to the app later)
       const isTypingInInput =
         document.activeElement instanceof HTMLInputElement ||
         document.activeElement instanceof HTMLTextAreaElement;
 
       if (isTypingInInput) return;
 
-      // Second, ignore any keyboard combinations (like CMD+C, ALT+Tab, etc.)
       if (e.metaKey || e.ctrlKey || e.altKey) return;
 
-      // Finally, if the key is a single printable character (letters, numbers, punctuation)
       if (e.key.length === 1) {
         console.log("Focusing input due to key press:", e.key);
         inputRef.current?.focus();
-        // By focusing during the 'keydown' event, the browser seamlessly
-        // routes the subsequent 'keypress' and 'input' events to the input field,
-        // meaning the character they just typed will appear automatically!
       }
     };
 
@@ -65,16 +50,12 @@ export const TaskInput = () => {
           className={`glass-panel w-full p-1 shadow-[0_20px_40px_rgba(26,28,28,0.04)] ring-1 ${isUrgent ? "ring-red-500 border-2 border-red-500" : "ring-black/[0.03]"}`}
         >
           <div className="relative flex items-center">
-            {/* <span className="material-symbols-outlined absolute left-4 text-outline opacity-40">
-              add
-            </span> */}
-
             <input
               ref={inputRef}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleEnter}
-              className="w-full bg-transparent border-none focus:ring-0 outline-none py-4 pl-6 pr-6 font-body text-base placeholder:text-outline/40"
+              className="w-full bg-transparent border-none focus:ring-0 outline-none py-4 pl-6 pr-6 font-body text-base placeholder:text-outline/40 caret-transparent"
               placeholder="Type to add a new focus..."
               type="text"
             />
@@ -84,8 +65,11 @@ export const TaskInput = () => {
                 CMD
               </kbd>
               <kbd className="hidden md:flex items-center px-1.5 py-0.5 font-label text-[10px] bg-surface-container-high text-on-surface-variant opacity-60">
-                K
+                U
               </kbd>
+              <span className="hidden md:flex items-center font-label text-[10px] text-on-surface-variant opacity-60">
+                urgent
+              </span>
             </div>
           </div>
         </div>

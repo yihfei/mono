@@ -12,20 +12,8 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-black font-sans selection:bg-black selection:text-white">
       <div className="max-w-3xl mx-auto px-6 py-12 flex flex-col h-screen">
-        {/* Header */}
-        {/* <header className="flex justify-between items-center mb-12">
-          <h1 className="text-xl font-bold tracking-tighter uppercase">MONO</h1>
-          <div className="flex gap-4 text-gray-400">
-            <button className="hover:text-black transition-colors">⚙️</button>
-            <button className="hover:text-black transition-colors">⋮</button>
-          </div>
-        </header> */}
 
-        {/* Title */}
         <div className="mb-8">
-          {/* <p className="text-xs font-semibold text-gray-400 tracking-widest uppercase mb-2">
-            Focus Mode
-          </p> */}
           <h2 className="text-2xl sm:text-5xl text-gray-400 font-semibold tracking-tight">
             Today’s Focus
           </h2>

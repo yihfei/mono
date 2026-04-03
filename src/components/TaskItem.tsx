@@ -32,18 +32,6 @@ export const TaskItem = ({ task, onToggle, onDelete }: TaskItemProps) => {
         >
           {task.title}
         </h2>
-        {/* <div className="flex gap-3 items-center">
-          {task.urgency && !isDone && (
-            <>
-              <span className="text-[0.6875rem] font-label text-outline opacity-60">High Priority</span>
-              <span className="text-[0.6875rem] font-label text-outline opacity-30">•</span>
-            </>
-          )}
-
-          <span className="text-[0.6875rem] font-label text-outline opacity-60">
-            {isDone ? 'Completed' : 'Draft'}
-          </span>
-        </div> */}
       </div>
 
       <button
