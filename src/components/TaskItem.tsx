@@ -15,7 +15,7 @@ export const TaskItem = ({ task, onToggle, onDelete }: TaskItemProps) => {
       onClick={() => onToggle(task.id)}
       className={`
         group flex items-start gap-6 pl-4 py-1 cursor-pointer transition-all duration-200
-        ${task.urgency && !isDone ? 'border-l-2 border-[#000000]' : 'border-l-2 border-transparent'}
+        ${task.urgency && !isDone ? 'border-l-2 border-[#EF4444]' : 'border-l-2 border-transparent'}
       `}
     >
       <div className={`
